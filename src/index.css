@@ -1,48 +1,67 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 225 25% 14%;
-    --foreground: 210 40% 98%;
-
-    --card: 224 30% 10%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 255 84% 75%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 260 30% 54%;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    
+    --primary: 217 91% 53%;
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 215 28% 17%;
     --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 260 30% 54%;
+    
+    --accent: 217 91% 60%;
     --accent-foreground: 210 40% 98%;
-
+    
+    --muted: 220 13% 91%;
+    --muted-foreground: 220 9% 46%;
+    
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 255 84% 75%;
-
+    
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217 91% 53%;
     --radius: 0.5rem;
+  }
 
-    --sidebar-background: 224 30% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 255 84% 75%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 255 84% 75%;
+  [data-theme="dark"] {
+    --background: 240 4% 7%;
+    --foreground: 0 0% 90%;
+    
+    --card: 240 4% 7%;
+    --card-foreground: 0 0% 90%;
+    
+    --popover: 240 4% 7%;
+    --popover-foreground: 0 0% 90%;
+    
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 220 13% 91%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    
+    --accent: 217 91% 69%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    
+    --muted: 240 4% 16%;
+    --muted-foreground: 220 8.9% 61%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 217 91% 60%;
   }
 }
 
@@ -50,9 +69,9 @@
   * {
     @apply border-border;
   }
-
+  
   body {
-    @apply bg-background text-foreground overflow-x-hidden;
+    @apply bg-background text-foreground antialiased overflow-x-hidden;
   }
 
   ::-webkit-scrollbar {
