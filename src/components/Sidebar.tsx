@@ -1,8 +1,9 @@
-import { HomeIcon, ListMusic, Search, User, LogOut } from "lucide-react";
+import { HomeIcon, ListMusic, Search, User, LogOut, Sun, Moon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "./ui/button";
 import { AuthForm } from "./auth/AuthForm";
+import { useTheme } from "./ThemeProvider";
 import {
   Sheet,
   SheetContent,
@@ -14,6 +15,7 @@ import {
 
 const Sidebar = () => {
   const { user, signOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const handleSignOut = async () => {
     try {
@@ -24,12 +26,24 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="h-full w-64 flex-shrink-0 border-r bg-sidebar p-4">
-      <div className="mb-8 flex items-center gap-2 px-2">
-        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-zanga-purple">
-          <span className="text-lg font-bold text-white">Z</span>
+    <aside className="h-full w-64 flex-shrink-0 border-r bg-background p-4">
+      <div className="mb-8 flex items-center justify-between px-2">
+        <div className="flex items-center gap-2">
+          <img 
+            src="/lovable-uploads/a11a8942-a3e7-48bc-96da-0d0f05269287.png" 
+            alt="Zanga Logo" 
+            className="h-8 w-8"
+          />
+          <h1 className="text-xl font-bold">ZANGA</h1>
         </div>
-        <h1 className="text-xl font-bold text-white">ZANGA</h1>
+        <Button 
+          variant="ghost" 
+          size="icon"
+          onClick={toggleTheme}
+          className="ml-2"
+        >
+          {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </Button>
       </div>
       
       <div className="space-y-2">

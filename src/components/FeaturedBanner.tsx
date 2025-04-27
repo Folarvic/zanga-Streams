@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 
 const FeaturedBanner = () => {
   return (
-    <div className="relative mb-8 overflow-hidden rounded-xl bg-gradient-to-r from-zanga-purple to-zanga-deep-purple p-6">
+    <div className="relative mb-8 overflow-hidden rounded-xl bg-gradient-to-r from-primary to-accent p-6">
       <div className="relative z-10 max-w-2xl">
         <p className="mb-2 text-sm font-medium text-white/80">FEATURED PLAYLIST</p>
         <h2 className="mb-2 text-4xl font-bold text-white">Discover Weekly</h2>
@@ -12,7 +12,7 @@ const FeaturedBanner = () => {
           Your weekly mixtape of fresh music. Enjoy new discoveries and deep cuts chosen just for you. Updated every Monday.
         </p>
         <div className="flex gap-4">
-          <Button className="gap-2 bg-white text-zanga-deep-purple hover:bg-white/90">
+          <Button className="gap-2 bg-white text-primary hover:bg-white/90">
             <Play size={16} fill="currentColor" />
             Play Now
           </Button>
