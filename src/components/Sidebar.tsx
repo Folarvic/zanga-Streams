@@ -1,8 +1,28 @@
-
-import { HomeIcon, ListMusic, Search, User } from "lucide-react";
+import { HomeIcon, ListMusic, Search, User, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import { Button } from "./ui/button";
+import { AuthForm } from "./auth/AuthForm";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const Sidebar = () => {
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   return (
     <aside className="h-full w-64 flex-shrink-0 border-r bg-sidebar p-4">
       <div className="mb-8 flex items-center gap-2 px-2">
@@ -53,20 +73,37 @@ const Sidebar = () => {
       </div>
       
       <div className="mt-auto pt-8">
-        <div className="flex items-center justify-between rounded-md bg-card p-2">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
-              <User size={14} />
+        {user ? (
+          <div className="flex items-center justify-between rounded-md bg-card p-2">
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
+                <User size={14} />
+              </div>
+              <div>
+                <p className="text-sm font-medium">{user.email}</p>
+                <p className="text-xs text-muted-foreground">Premium User</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-medium">Guest User</p>
-              <p className="text-xs text-muted-foreground">Free Plan</p>
-            </div>
+            <Button variant="ghost" size="icon" onClick={handleSignOut}>
+              <LogOut className="h-4 w-4" />
+            </Button>
           </div>
-          <button className="rounded-full bg-zanga-purple p-1 text-[10px] font-medium">
-            PRO
-          </button>
-        </div>
+        ) : (
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button className="w-full">Sign In</Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Authentication</SheetTitle>
+                <SheetDescription>
+                  Sign in to access all features
+                </SheetDescription>
+              </SheetHeader>
+              <AuthForm />
+            </SheetContent>
+          </Sheet>
+        )}
       </div>
     </aside>
   );
