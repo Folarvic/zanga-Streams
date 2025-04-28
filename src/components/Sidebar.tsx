@@ -1,6 +1,8 @@
-import { HomeIcon, ListMusic, Search, User, LogOut, Sun, Moon } from "lucide-react";
-import { Link } from "react-router-dom";
+
+import { HomeIcon, ListMusic, Search, User, LogOut, Sun, Moon, Plus } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { usePlaylist } from "@/context/PlaylistContext";
 import { Button } from "./ui/button";
 import { AuthForm } from "./auth/AuthForm";
 import { useTheme } from "./ThemeProvider";
@@ -16,6 +18,8 @@ import {
 const Sidebar = () => {
   const { user, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const { playlists } = usePlaylist();
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
     try {
@@ -40,7 +44,7 @@ const Sidebar = () => {
           variant="ghost" 
           size="icon"
           onClick={toggleTheme}
-          className="ml-2"
+          className="ml-2 text-primary"
         >
           {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </Button>
@@ -51,38 +55,67 @@ const Sidebar = () => {
           MAIN
         </p>
         <nav className="space-y-1">
-          <Link to="/" className="flex items-center gap-3 rounded-md px-2 py-2 text-white hover:bg-accent">
-            <HomeIcon size={20} className="text-zanga-purple" />
+          <Link to="/" className="flex items-center gap-3 rounded-md px-2 py-2 text-foreground hover:bg-accent">
+            <HomeIcon size={20} className="text-primary" />
             <span>Home</span>
           </Link>
-          <Link to="/browse" className="flex items-center gap-3 rounded-md px-2 py-2 text-white hover:bg-accent">
-            <Search size={20} className="text-white" />
+          <Link to="/browse" className="flex items-center gap-3 rounded-md px-2 py-2 text-foreground hover:bg-accent">
+            <Search size={20} className="text-foreground" />
             <span>Browse</span>
           </Link>
-          <Link to="/library" className="flex items-center gap-3 rounded-md px-2 py-2 text-white hover:bg-accent">
-            <ListMusic size={20} className="text-white" />
+          <Link to="/search" className="flex items-center gap-3 rounded-md px-2 py-2 text-foreground hover:bg-accent">
+            <Search size={20} className="text-foreground" />
+            <span>Search</span>
+          </Link>
+          <Link to="/library" className="flex items-center gap-3 rounded-md px-2 py-2 text-foreground hover:bg-accent">
+            <ListMusic size={20} className="text-foreground" />
             <span>Your Library</span>
           </Link>
         </nav>
       </div>
       
       <div className="mt-6 space-y-2">
-        <p className="px-2 text-xs font-semibold text-muted-foreground">
-          PLAYLISTS
-        </p>
-        <div className="space-y-1">
-          <button className="w-full text-left">
-            <p className="line-clamp-1 rounded-md px-2 py-2 text-sm hover:bg-accent">Favorites</p>
-          </button>
-          <button className="w-full text-left">
-            <p className="line-clamp-1 rounded-md px-2 py-2 text-sm hover:bg-accent">Chill Vibes</p>
-          </button>
-          <button className="w-full text-left">
-            <p className="line-clamp-1 rounded-md px-2 py-2 text-sm hover:bg-accent">Workout Mix</p>
-          </button>
-          <button className="w-full text-left">
-            <p className="line-clamp-1 rounded-md px-2 py-2 text-sm hover:bg-accent">Study Session</p>
-          </button>
+        <div className="flex items-center justify-between px-2">
+          <p className="text-xs font-semibold text-muted-foreground">
+            PLAYLISTS
+          </p>
+          {user && (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-6 w-6 rounded-full hover:bg-accent"
+              onClick={() => navigate("/create-playlist")}
+            >
+              <Plus size={16} />
+            </Button>
+          )}
+        </div>
+        <div className="space-y-1 overflow-auto max-h-48">
+          {user ? (
+            playlists.length > 0 ? (
+              playlists.map((playlist) => (
+                <Link 
+                  key={playlist.id} 
+                  to={`/playlist/${playlist.id}`}
+                  className="block w-full text-left"
+                >
+                  <p className="line-clamp-1 rounded-md px-2 py-2 text-sm hover:bg-accent">
+                    {playlist.title}
+                  </p>
+                </Link>
+              ))
+            ) : (
+              <p className="px-2 py-2 text-sm text-muted-foreground">
+                No playlists yet
+              </p>
+            )
+          ) : (
+            <>
+              <p className="px-2 py-2 text-sm text-muted-foreground">
+                Sign in to see your playlists
+              </p>
+            </>
+          )}
         </div>
       </div>
       
@@ -105,7 +138,7 @@ const Sidebar = () => {
         ) : (
           <Sheet>
             <SheetTrigger asChild>
-              <Button className="w-full">Sign In</Button>
+              <Button id="sign-in-trigger" className="w-full">Sign In</Button>
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>

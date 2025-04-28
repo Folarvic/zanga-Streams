@@ -11,6 +11,9 @@ import Index from "./pages/Index";
 import Browse from "./pages/Browse";
 import Library from "./pages/Library";
 import NotFound from "./pages/NotFound";
+import Search from "./pages/Search";
+import PlaylistManager from "./pages/PlaylistManager";
+import PlaylistDetail from "./pages/PlaylistDetail";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,9 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/browse" element={<Browse />} />
                 <Route path="/library" element={<Library />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/create-playlist" element={<PlaylistManager />} />
+                <Route path="/playlist/:id" element={<PlaylistDetail />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
