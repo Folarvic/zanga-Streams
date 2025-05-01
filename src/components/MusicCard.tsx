@@ -29,7 +29,9 @@ const MusicCard = ({ title, artist, coverUrl, linkTo, playlistId }: MusicCardPro
           alt={`${title} by ${artist}`} 
           className="aspect-square w-full object-cover transition-transform duration-300 hover:scale-105"
         />
-        <button className="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary opacity-0 transition-opacity hover:bg-primary/90 group-hover:opacity-100">
+        <button 
+          title="Play" 
+          className="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary opacity-0 transition-opacity hover:bg-primary/90 group-hover:opacity-100">
           <Play size={16} fill="white" />
         </button>
       </div>
